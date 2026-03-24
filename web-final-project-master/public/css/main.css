@@ -1,0 +1,348 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f7f7f9;
+    color: #222;
+}
+
+.site-header {
+    background: #222;
+    color: #fff;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.site-header h1 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.nav a {
+    color: #fff;
+    margin-left: 12px;
+    text-decoration: none;
+}
+
+.nav a:hover {
+    text-decoration: underline;
+}
+
+.toolbar {
+    padding: 10px 16px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.toolbar button {
+    margin-right: 8px;
+}
+
+main {
+    max-width: 960px;
+    margin: 16px auto;
+    padding: 0 16px 32px;
+}
+
+.article-list {
+    list-style: none;
+    padding: 0;
+}
+
+.article-item {
+    background: #fff;
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.article-item h2 {
+    margin: 0 0 4px;
+    font-size: 18px;
+}
+
+.article-item h2 a {
+    color: #333;
+    text-decoration: none;
+}
+
+.article-item h2 a:hover {
+    text-decoration: underline;
+}
+
+.meta {
+    font-size: 12px;
+    color: #666;
+}
+
+.meta-with-avatar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.likes {
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.likes button {
+    margin-right: 4px;
+}
+
+.error {
+    color: #c00;
+}
+
+.success {
+    color: #2a7a2a;
+}
+
+/* 表单通用样式 */
+.article-form-wrapper form {
+    background: #fff;
+    padding: 16px;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.article-form-wrapper label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 4px;
+}
+
+.article-form-wrapper input[type="text"],
+.article-form-wrapper textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.article-form-wrapper button {
+    margin-top: 16px;
+    padding: 8px 16px;
+}
+
+.hint {
+    font-size: 12px;
+    color: #666;
+}
+
+.article-detail {
+    background: #fff;
+    padding: 16px;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.article-content {
+    margin-top: 12px;
+    line-height: 1.6;
+}
+
+.article-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.comments-section {
+    margin-top: 24px;
+    padding-top: 12px;
+    border-top: 1px solid #eee;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.comment-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.comment-list.child {
+    margin-left: 20px;
+    border-left: 2px solid #eee;
+    padding-left: 12px;
+}
+
+.comment-item {
+    background: #fafafa;
+    padding: 10px 12px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.comment-meta {
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.comment-actions {
+    margin-top: 6px;
+}
+
+.inline-form {
+    display: inline;
+}
+
+.editor-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.editor {
+    min-height: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    background: #fff;
+}
+
+.editor:focus {
+    outline: none;
+    border-color: #555;
+}
+
+.hidden {
+    display: none;
+}
+
+.profile-wrapper {
+    background: #fff;
+    padding: 16px;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.auth-wrapper {
+    max-width: 520px;
+    margin: 16px auto;
+    padding: 0 16px 24px;
+}
+
+.auth-form {
+    background: #fff;
+    padding: 16px;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.auth-form label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 4px;
+}
+
+.auth-form input,
+.auth-form textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+#usernameHint,
+#passwordMatchHint {
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+}
+
+.profile-form label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 4px;
+}
+
+.profile-form input,
+.profile-form textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.avatars {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.avatars label {
+    display: flex;
+    align-items: center;
+}
+
+.avatars input {
+    margin-right: 6px;
+}
+
+.avatar-option {
+    gap: 6px;
+    padding: 6px 8px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    background: #fff;
+}
+
+.avatar-option:hover {
+    border-color: #ddd;
+}
+
+.avatar-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #f5f5f5;
+}
+
+.avatar-small {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #f5f5f5;
+}
+
+.avatar-name {
+    font-size: 13px;
+    color: #333;
+}
+
+.delete-form {
+    margin-top: 16px;
+}
+
+.danger {
+    background: #c00;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav {
+        margin-top: 8px;
+    }
+}
+

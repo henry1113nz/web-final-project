@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <header class="site-header">
+        <h1>Register New Account</h1>
+        <nav class="nav">
+            <a href="/auth/login">Go to Login</a>
+            <a href="/articles">Article List</a>
+        </nav>
+    </header>
+
+    <main class="auth-wrapper">
+        {{#if error}}
+        <p class="error">{{error}}</p>
+        {{/if}}
+
+        <form method="post" action="/auth/register" id="registerForm" class="auth-form">
+        <label>Username</label>
+        <input type="text" name="username" value="{{form.username}}" required id="usernameInput" autocomplete="username">
+        <span id="usernameHint"></span>
+
+        <label>Password</label>
+        <input type="password" name="password" required id="password" minlength="1" autocomplete="new-password">
+
+        <label>Confirm Password</label>
+        <input type="password" name="passwordConfirm" required id="passwordConfirm" autocomplete="new-password">
+        <span id="passwordMatchHint"></span>
+
+        <label>Real Name</label>
+        <input type="text" name="real_name" value="{{form.real_name}}" required>
+
+        <label>Date of Birth</label>
+        <input type="date" name="date_of_birth" value="{{form.date_of_birth}}" required min="1900-01-01" max="2099-12-31" id="dateOfBirthInput">
+
+        <label>About Me</label>
+        <textarea name="description" rows="3">{{form.description}}</textarea>
+
+        <label>Select Avatar</label>
+        <div class="avatars">
+            {{#each avatars}}
+            <label class="avatar-option">
+                <input type="radio" name="avatar_id" value="{{avatar_id}}" {{#if (eq avatar_id ../form.avatar_id)}}checked{{/if}} {{#unless ../form.avatar_id}}{{#if (eq avatar_id 1)}}checked{{/if}}{{/unless}}>
+                <img src="{{avatar_path}}" alt="{{avatar_name}}" class="avatar-image">
+                <span class="avatar-name">{{avatar_name}}</span>
+            </label>
+            {{/each}}
+        </div>
+
+        <button type="submit" id="submitButton">Register</button>
+        </form>
+    </main>
+
+    <script>
+        (function () {
+            var usernameInput = document.getElementById('usernameInput');
+            var usernameHint = document.getElementById('usernameHint');
+            var password = document.getElementById('password');
+            var passwordConfirm = document.getElementById('passwordConfirm');
+            var passwordMatchHint = document.getElementById('passwordMatchHint');
+            var form = document.getElementById('registerForm');
+            var dateOfBirthInput = document.getElementById('dateOfBirthInput');
+
+            function checkPasswordMatch() {
+                if (!passwordConfirm.value) {
+                    passwordMatchHint.textContent = '';
+                    return true;
+                }
+                if (password.value !== passwordConfirm.value) {
+                    passwordMatchHint.textContent = 'Passwords do not match';
+                    passwordMatchHint.style.color = 'red';
+                    return false;
+                }
+                passwordMatchHint.textContent = 'Passwords match';
+                passwordMatchHint.style.color = 'green';
+                return true;
+            }
+
+            function validateDateOfBirth() {
+                if (!dateOfBirthInput || !dateOfBirthInput.value) return true;
+                var parts = dateOfBirthInput.value.split('-');
+                if (parts.length !== 3) return false;
+                var year = parts[0] || '';
+                var month = parseInt(parts[1], 10);
+                var day = parseInt(parts[2], 10);
+                if (year.length !== 4) return false;
+                if (isNaN(month) || month < 1 || month > 12) return false;
+                if (isNaN(day) || day < 1 || day > 31) return false;
+                return true;
+            }
+
+            passwordConfirm.addEventListener('input', checkPasswordMatch);
+            password.addEventListener('input', checkPasswordMatch);
+            if (dateOfBirthInput) {
+                dateOfBirthInput.addEventListener('input', function () {
+                    if (!validateDateOfBirth()) {
+                        dateOfBirthInput.setCustomValidity('Day must be between 1 and 31.');
+                    } else {
+                        dateOfBirthInput.setCustomValidity('');
+                    }
+                });
+            }
+
+            var checkUsernameTimer;
+            usernameInput.addEventListener('input', function () {
+                clearTimeout(checkUsernameTimer);
+                var name = usernameInput.value.trim();
+                if (!name) {
+                    usernameHint.textContent = '';
+                    return;
+                }
+                checkUsernameTimer = setTimeout(function () {
+                    fetch('/auth/check-username?username=' + encodeURIComponent(name))
+                        .then(function (r) { return r.json(); })
+                        .then(function (data) {
+                            if (data.taken) {
+                                usernameHint.textContent = 'Username is taken';
+                                usernameHint.style.color = 'red';
+                            } else {
+                                usernameHint.textContent = 'Username is available';
+                                usernameHint.style.color = 'green';
+                            }
+                        })
+                        .catch(function () { usernameHint.textContent = ''; });
+                }, 300);
+            });
+
+            form.addEventListener('submit', function (e) {
+                if (!checkPasswordMatch()) {
+                    e.preventDefault();
+                    return;
+                }
+                if (dateOfBirthInput && dateOfBirthInput.value) {
+                    var yearPart = dateOfBirthInput.value.split('-')[0] || '';
+                    if (yearPart.length !== 4 || !validateDateOfBirth()) {
+                        e.preventDefault();
+                        alert('Please enter a valid date. Day must be between 1 and 31.');
+                    }
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

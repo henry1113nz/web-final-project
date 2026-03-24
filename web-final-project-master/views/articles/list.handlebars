@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <header class="site-header">
+        <h1>{{title}}</h1>
+        <nav class="nav">
+            <a href="/articles">All Articles</a>
+            {{#if showMyLink}}<a href="/articles/my">My Articles</a>{{/if}}
+            {{#if user}}
+                <span>Welcome, {{user.username}}</span>
+                <a href="/articles/new">Write Article</a>
+                <a href="/auth/logout">Logout</a>
+            {{else}}
+                <a href="/auth/login">Login</a>
+                <a href="/auth/register">Register</a>
+            {{/if}}
+        </nav>
+    </header>
+
+    <section class="toolbar">
+        <span>Sort:</span>
+        <button class="sort-button" data-sort="date" data-order="{{#if (eq sort 'date')}}{{order}}{{else}}desc{{/if}}">
+            By Date{{#if (eq sort 'date')}} (Current: {{#if (eq order 'asc')}}Ascending{{else}}Descending{{/if}}){{/if}}
+        </button>
+        <button class="sort-button" data-sort="title" data-order="{{#if (eq sort 'title')}}{{order}}{{else}}asc{{/if}}">
+            By Title{{#if (eq sort 'title')}} (Current: {{#if (eq order 'asc')}}Ascending{{else}}Descending{{/if}}){{/if}}
+        </button>
+        <button class="sort-button" data-sort="username" data-order="{{#if (eq sort 'username')}}{{order}}{{else}}asc{{/if}}">
+            By Author{{#if (eq sort 'username')}} (Current: {{#if (eq order 'asc')}}Ascending{{else}}Descending{{/if}}){{/if}}
+        </button>
+    </section>
+
+    <main>
+        <ul id="articleList" class="article-list">
+            {{#if articles.length}}
+                {{#each articles}}
+                    <li class="article-item" data-article-id="{{article_id}}">
+                        <h2><a href="/articles/{{article_id}}">{{title}}</a></h2>
+                        <p class="meta meta-with-avatar">
+                            <img class="avatar-small" src="{{avatar_path}}" alt="{{username}} avatar">
+                            <span>Author: {{username}} | Published: {{created_at}}</span>
+                        </p>
+                        <p class="likes">
+                            <button class="like-button" data-article-id="{{article_id}}" {{#unless ../../user}}disabled title="Login required to like"{{/unless}}>
+                                👍 Like
+                            </button>
+                            <span class="likes-count">{{likes_count}}</span> Likes
+                        </p>
+                    </li>
+                {{/each}}
+            {{else}}
+                <li>No articles yet.</li>
+            {{/if}}
+        </ul>
+    </main>
+
+    <script src="/js/articles.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <style>
+        body { font-family: sans-serif; max-width: 400px; margin: 40px auto; padding: 20px; }
+        .error { color: red; margin-bottom: 10px; }
+        label { display: block; margin-top: 10px; }
+        input { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; }
+        button { margin-top: 16px; padding: 8px 16px; }
+    </style>
+</head>
+<body>
+    <h1>登录</h1>
+    <p><a href="/auth/register">没有账号？去注册</a> | <a href="/">返回首页</a></p>
+
+    {{#if error}}
+    <p class="error">{{error}}</p>
+    {{/if}}
+
+    <form method="post" action="/auth/login">
+        <label>用户名</label>
+        <input type="text" name="username" required autocomplete="username">
+
+        <label>密码</label>
+        <input type="password" name="password" required autocomplete="current-password">
+
+        <button type="submit">登录</button>
+    </form>
+</body>
+</html>
